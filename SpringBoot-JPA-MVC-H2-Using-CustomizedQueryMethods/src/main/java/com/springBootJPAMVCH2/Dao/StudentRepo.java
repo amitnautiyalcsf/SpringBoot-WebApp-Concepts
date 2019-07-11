@@ -1,0 +1,26 @@
+package com.springBootJPAMVCH2.Dao;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import com.springBootJPAMVCH2.model.Student;
+
+public interface StudentRepo extends JpaRepository<Student, Integer> 
+{
+	// tech is the property thats why it is working we need not to define this method, it is automatically taken care by JPA, only rule is the name of the method Start using "findBY" followed by property.
+	List<Student>findByTech(String tech);
+	List<Student>findBySidGreaterThan(int sid);
+	List<Student>findBySidLessThan(int sid);
+	
+	
+	//for Complex query /our own query
+	
+	@Query("from Student where tech=?1 order by sname")
+	List<Student>findByTechSorted(String tech);
+	
+	
+	
+
+}
